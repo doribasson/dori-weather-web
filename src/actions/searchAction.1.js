@@ -12,36 +12,40 @@ import axios from "axios";
 
 export const searchCity = cityQuery => {
   return function(dispatch) {
-    fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`)
+    axios
+      .get(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`)
       .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        const cityKey = data[0].Key;
-        Promise.all([
-          fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`),
-          fetch(`${API_ADDRESS_SEARCH}${cityKey}?apikey=${KEY_WEATHER}`),
-          fetch(`${API_ADDRESS_CURRENT}${cityKey}?apikey=${KEY_WEATHER}`)
-        ])
-          .then(async ([req1, req2, req3]) => {
-            const res1 = await req1.json();
-            const res2 = await req2.json();
-            const res3 = await req3.json();
-            return [res1, res2, res3];
-          })
-          .then(responseAll => {
-            dispatch({
-              type: FETCH_SEARCH,
-              cityKey: responseAll[0][0].Key,
-              cityName: responseAll[0][0].LocalizedName,
-              cityId: responseAll[0][0].AdministrativeArea.ID,
-              forcasts: responseAll[1].DailyForecasts,
-              data: responseAll[2]
-            });
+        if (response.status !== 200) {
+          throw new Error("Unsuccessful request to deckofcardsapi.com");
+        }
+        const cityName = response.data[0].LocalizedName;
+        const cityId = response.data[0].AdministrativeArea.ID;
+        const cityKey = response.data[0].Key;
+
+        axios
+          .get(`${API_ADDRESS_SEARCH}${cityKey}?apikey=${KEY_WEATHER}`)
+          .then(response => {
+            const forcasts = response.data.DailyForecasts;
+
+            axios
+              .get(`${API_ADDRESS_CURRENT}${cityKey}?apikey=${KEY_WEATHER}`)
+              .then(response => {
+                if (response.status !== 200) {
+                  throw new Error("Unsuccessful request to deckofcardsapi.com");
+                }
+                dispatch({
+                  type: FETCH_SEARCH,
+                  data: response.data,
+                  cityName,
+                  cityId,
+                  forcasts,
+                  cityKey
+                });
+              });
           });
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        alert("this city not found");
       });
   };
 };

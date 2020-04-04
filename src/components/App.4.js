@@ -11,21 +11,6 @@ import "moment/locale/en-gb";
 import Addfavotire from "./Addfavotire";
 import Toggleswitch from "./Toggleswitch";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
-import SplitText from "react-pose-text";
-
-const charPoses = {
-  exit: { y: 40, opacity: 0 },
-  enter: {
-    y: 0,
-    opacity: 1,
-    transition: ({ charInWordIndex }) => ({
-      type: "spring",
-      delay: charInWordIndex * 30,
-      stiffness: 500 + charInWordIndex * 150,
-      damping: 10 - charInWordIndex * 1
-    })
-  }
-};
 
 class App extends Component {
   state = {
@@ -62,14 +47,8 @@ class App extends Component {
             <div className="card-title">
               {this.props.forcast.map((temp, i) => {
                 return (
-                  <div key={i} className="cityText">
-                    <SplitText
-                      initialPose="exit"
-                      pose="enter"
-                      charPoses={charPoses}
-                    >
-                      {this.props.cityName}
-                    </SplitText>
+                  <div key={i} className="b">
+                    <h4 className="card-title">{this.props.cityName}</h4>
                     <h6 className="card-title">
                       {this.state.flagToggle
                         ? temp.Temperature.Metric.Value + " ℃"
@@ -86,6 +65,8 @@ class App extends Component {
                         onChange={checked => {
                           this.setState({ flagToggle: checked });
                         }}
+
+                        // size="sm"
                       />
                     </div>
 
@@ -104,10 +85,8 @@ class App extends Component {
 
           <div className="card-deck">
             {this.props.forcasts.map((temp, i) => {
-              const fahrenheitMin = temp.Temperature.Minimum.Value;
-              const fahrenheitMax = temp.Temperature.Maximum.Value;
-              const CelsiusMin = ((5 / 9) * (fahrenheitMin - 32)).toFixed(0);
-              const CelsiusMax = ((5 / 9) * (fahrenheitMax - 32)).toFixed(0);
+              const { Value } = temp.Temperature.Minimum;
+              const Celsius = ((5 / 9) * (Value - 32)).toFixed(0);
               return (
                 <div key={i} className="card">
                   <h5 className="card-title">
@@ -116,22 +95,9 @@ class App extends Component {
                   <h5 className="card-title">
                     {moment(temp.Date).format("dddd")}
                   </h5>
-                  {this.state.flagToggle ? (
-                    <h5 className="card-text">
-                      {CelsiusMin} - {CelsiusMax} {" ℃"}
-                    </h5>
-                  ) : (
-                    <h5 className="card-text">
-                      {fahrenheitMin} - {fahrenheitMax} {" °F"}
-                    </h5>
-                  )}
+                  <h5 className="card-text">{Value} °F</h5>
+                  <h5 className="card-text">{Celsius} ℃</h5>
                   <h6 className="card-title">{this.props.cityId}</h6>
-                  <br />
-                  <img
-                    style={{ margin: "-20px" }}
-                    src={iconsSwitch1(temp.Day.IconPhrase)}
-                    alt="none"
-                  />
                 </div>
               );
             })}

@@ -12,12 +12,15 @@ import axios from "axios";
 
 export const searchCity = cityQuery => {
   return function(dispatch) {
+    var cityKey = null;
     fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`)
       .then(response => {
         return response.json();
       })
       .then(data => {
-        const cityKey = data[0].Key;
+        console.log(data);
+        cityKey = data[0].Key;
+        console.log(cityKey);
         Promise.all([
           fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`),
           fetch(`${API_ADDRESS_SEARCH}${cityKey}?apikey=${KEY_WEATHER}`),
@@ -30,6 +33,12 @@ export const searchCity = cityQuery => {
             return [res1, res2, res3];
           })
           .then(responseAll => {
+            console.log(responseAll);
+            console.log(responseAll[0][0].Key);
+            console.log(responseAll[0][0].LocalizedName);
+            console.log(responseAll[0][0].AdministrativeArea.ID);
+            console.log(responseAll[1].DailyForecasts);
+
             dispatch({
               type: FETCH_SEARCH,
               cityKey: responseAll[0][0].Key,
@@ -40,6 +49,7 @@ export const searchCity = cityQuery => {
             });
           });
       })
+
       .catch(err => {
         console.log(err);
       });

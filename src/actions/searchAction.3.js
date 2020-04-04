@@ -12,33 +12,32 @@ import axios from "axios";
 
 export const searchCity = cityQuery => {
   return function(dispatch) {
-    fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`)
-      .then(response => {
-        return response.json();
+    Promise.all([
+      fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`),
+      fetch(`${API_ADDRESS_SEARCH}${cityKey}?apikey=${KEY_WEATHER}`),
+      fetch(`${API_ADDRESS_CURRENT}${cityKey}?apikey=${KEY_WEATHER}`)
+    ])
+      .then(async ([req1, req2, req3]) => {
+        const res1 = await req1.json();
+        const res2 = await req2.json();
+        const res3 = await req3.json();
+        return [res1, res2, res3];
       })
-      .then(data => {
-        const cityKey = data[0].Key;
-        Promise.all([
-          fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`),
-          fetch(`${API_ADDRESS_SEARCH}${cityKey}?apikey=${KEY_WEATHER}`),
-          fetch(`${API_ADDRESS_CURRENT}${cityKey}?apikey=${KEY_WEATHER}`)
-        ])
-          .then(async ([req1, req2, req3]) => {
-            const res1 = await req1.json();
-            const res2 = await req2.json();
-            const res3 = await req3.json();
-            return [res1, res2, res3];
-          })
-          .then(responseAll => {
-            dispatch({
-              type: FETCH_SEARCH,
-              cityKey: responseAll[0][0].Key,
-              cityName: responseAll[0][0].LocalizedName,
-              cityId: responseAll[0][0].AdministrativeArea.ID,
-              forcasts: responseAll[1].DailyForecasts,
-              data: responseAll[2]
-            });
-          });
+      .then(responseAll => {
+        console.log(responseAll);
+        console.log(responseAll[0][0].Key);
+        console.log(responseAll[0][0].LocalizedName);
+        console.log(responseAll[0][0].AdministrativeArea.ID);
+        console.log(responseAll[1].DailyForecasts);
+
+        dispatch({
+          type: FETCH_SEARCH,
+          cityKey: responseAll[0][0].Key,
+          cityName: responseAll[0][0].LocalizedName,
+          cityId: responseAll[0][0].AdministrativeArea.ID,
+          forcasts: responseAll[1].DailyForecasts,
+          data: responseAll[2]
+        });
       })
       .catch(err => {
         console.log(err);

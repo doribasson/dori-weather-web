@@ -47,20 +47,11 @@ class Favorite extends Component {
     }
   }
 
-  removeCity = rmCity => {
-    let storedWeather = JSON.parse(localStorage.getItem("weatherInfo"));
-    const filterItems = storedWeather.filter(city => city !== rmCity);
-    localStorage.removeItem("weatherInfo");
-    localStorage.setItem("weatherInfo", JSON.stringify(filterItems));
-  };
-
   removeAll = () => {
     if (localStorage.getItem("weatherInfo") !== null)
       localStorage.removeItem("weatherInfo");
     this.setState({ flag: true });
   };
-
-  componentWillUnmount() {}
 
   fetchCity = CityName => {
     try {

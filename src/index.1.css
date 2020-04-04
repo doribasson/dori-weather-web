@@ -894,13 +894,35 @@ input[type="search"] {
   border-radius: 25px;
 }
 
-/* style={{
-  fontWeight: "bold",
-  fontSize: "30px"
-}} */
+/* @media (max-width: 584px) {
+  .switch-on.btn.btn-info.btn-sm {
+    border-radius: 80px;
+    background-color: rgb(132, 142, 226);
+    color: black;
+  }
+} */
 
-.cityText {
-  font-weight: bold;
-  font-size: 20px;
-  color: white;
+/* ------------------------------------------------------------------ */
+
+/* @media (max-width: 584px) {
+  .switch-handle.btn.btn-light {
+    border-radius: 20px;
+    margin-top: -11px;
+  }
 }
+
+@media (max-width: 584px) {
+  .switch.btn.on.btn-info {
+    min-width: 2.2rem;
+    min-height: calc(0.8em + 0.35rem + 0.3px);
+    text-align: center;
+  }
+}
+
+@media (max-width: 584px) {
+  .toggleTemp {
+    display: flex;
+    margin-left: -70px;
+    padding: 5px;
+  }
+} */

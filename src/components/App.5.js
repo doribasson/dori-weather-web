@@ -11,21 +11,6 @@ import "moment/locale/en-gb";
 import Addfavotire from "./Addfavotire";
 import Toggleswitch from "./Toggleswitch";
 import BootstrapSwitchButton from "bootstrap-switch-button-react";
-import SplitText from "react-pose-text";
-
-const charPoses = {
-  exit: { y: 40, opacity: 0 },
-  enter: {
-    y: 0,
-    opacity: 1,
-    transition: ({ charInWordIndex }) => ({
-      type: "spring",
-      delay: charInWordIndex * 30,
-      stiffness: 500 + charInWordIndex * 150,
-      damping: 10 - charInWordIndex * 1
-    })
-  }
-};
 
 class App extends Component {
   state = {
@@ -62,14 +47,8 @@ class App extends Component {
             <div className="card-title">
               {this.props.forcast.map((temp, i) => {
                 return (
-                  <div key={i} className="cityText">
-                    <SplitText
-                      initialPose="exit"
-                      pose="enter"
-                      charPoses={charPoses}
-                    >
-                      {this.props.cityName}
-                    </SplitText>
+                  <div key={i} className="b">
+                    <h4 className="card-title">{this.props.cityName}</h4>
                     <h6 className="card-title">
                       {this.state.flagToggle
                         ? temp.Temperature.Metric.Value + " ℃"
@@ -86,6 +65,8 @@ class App extends Component {
                         onChange={checked => {
                           this.setState({ flagToggle: checked });
                         }}
+
+                        // size="sm"
                       />
                     </div>
 

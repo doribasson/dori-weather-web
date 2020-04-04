@@ -12,33 +12,26 @@ import axios from "axios";
 
 export const searchCity = cityQuery => {
   return function(dispatch) {
-    fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        const cityKey = data[0].Key;
-        Promise.all([
-          fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`),
-          fetch(`${API_ADDRESS_SEARCH}${cityKey}?apikey=${KEY_WEATHER}`),
-          fetch(`${API_ADDRESS_CURRENT}${cityKey}?apikey=${KEY_WEATHER}`)
-        ])
-          .then(async ([req1, req2, req3]) => {
-            const res1 = await req1.json();
-            const res2 = await req2.json();
-            const res3 = await req3.json();
-            return [res1, res2, res3];
-          })
-          .then(responseAll => {
-            dispatch({
-              type: FETCH_SEARCH,
-              cityKey: responseAll[0][0].Key,
-              cityName: responseAll[0][0].LocalizedName,
-              cityId: responseAll[0][0].AdministrativeArea.ID,
-              forcasts: responseAll[1].DailyForecasts,
-              data: responseAll[2]
-            });
-          });
+    Promise.all([
+      fetch(`${API_ADDRESS}${KEY_WEATHER}=${cityQuery}`),
+      fetch(`${API_ADDRESS_SEARCH}212593?apikey=${KEY_WEATHER}`),
+      fetch(`${API_ADDRESS_CURRENT}212593?apikey=${KEY_WEATHER}`)
+    ])
+      .then(([request1, request2, request3]) => {
+        const cityName = request1.data;
+        // const cityId = request1.data[0].AdministrativeArea.ID;
+        // const cityKey = request1.data[0].Key;
+        // const forcasts = request2.data.DailyForecasts;
+        // const data1 = request3.data;
+        console.log(cityName);
+        dispatch({
+          type: FETCH_SEARCH,
+          // data: data1.data,
+          cityName
+          // cityId,
+          // forcasts,
+          // cityKey
+        });
       })
       .catch(err => {
         console.log(err);
