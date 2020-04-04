@@ -717,7 +717,8 @@ input[type="search"] {
 }
 
 .favorite-warnning {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .modal-title {
