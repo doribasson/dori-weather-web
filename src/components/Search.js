@@ -84,6 +84,7 @@ class Search extends Component {
             InputProps={{ ...params.InputProps, type: "search" }}
             onChange={e => this.updateState(e)}
             onKeyPress={e => this.handleKeyPress(e)}
+            placeholder="Search city"
           />
         )}
       />

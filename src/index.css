@@ -341,8 +341,6 @@ div.favorite-card {
   align-content: center;
   font-size: 30px;
   align-content: center;
-  /* margin-bottom: 60px; */
-  /* background-color: red; */
 }
 
 .favoriteButton:hover {
@@ -358,19 +356,7 @@ div.favorite-card {
 .btn-floating.btn-sm.btn-secondary {
   background-color: transparent;
   border-color: rgb(75, 75, 75);
-  /* background-color: rgba(170, 102, 204, 0.335); */
-  /* border-radius: 20px; */
-
-  /* opacity:0.8; */
 }
-
-/* .fas.fa-star {
-  color: white;
-} */
-
-/* .btn.btn-outline-success.btn-rounded.btn-sm.my-0{
-  background: linear-gradient(40deg,#f3f3f3,#b4b2f7)!important
-} */
 
 .searchbox {
   /*definint width of form element*/
@@ -549,7 +535,7 @@ input[type="search"]:focus + .suggestions li {
   background-color: white;
 } */
 
-.MuiInputBase-input.MuiOutlinedInput-input.MuiAutocomplete-input
+/* .MuiInputBase-input.MuiOutlinedInput-input.MuiAutocomplete-input
   .MuiAutocomplete-inputFocused.MuiInputBase-inputAdornedEndMuiOutlinedInput-inputAdornedEnd.MuiInputBase-inputTypeSearch.MuiInputBase-inputMarginDense.MuiOutlinedInput-inputMarginDense {
   background-color: red;
   border: none;
@@ -560,7 +546,7 @@ input[type="search"]:focus + .suggestions li {
   .MuiOutlinedInput-marginDense {
   background-color: red;
   padding: 0;
-}
+} */
 
 .MuiInputBase-root.MuiOutlinedInput-root.MuiAutocomplete-inputRoot.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-adornedEnd
   .MuiOutlinedInput-adornedEnd.MuiInputBase-marginDense
@@ -739,13 +725,8 @@ input[type="search"] {
 }
 
 .btn.btn-default {
-  /* color: red; */
   font-size: 20px;
 }
-
-/* .modal-header {
-  margin-right: 60px;
-} */
 
 .close1 {
   float: left;
@@ -807,23 +788,9 @@ input[type="search"] {
 
 @media (max-width: 584px) {
   .MuiAutocomplete-listbox {
-    /* margin: 0;
-    padding: 8px 0px;
-    overflow: auto;
-    list-style: none;
-    height: 400px; */
     overflow: hidden;
   }
 }
-
-/* @media (max-width: 584px) {
-  .MuiAutocomplete-listbox {
-    background-color: "white";
-    width: 100%;
-    max-height: 50vh;
-    height: 150vh;
-  }
-} */
 
 .LocationImgStyle {
   height: 50px;
@@ -833,7 +800,6 @@ input[type="search"] {
 
 @media (max-width: 584px) {
   .btn-info {
-    /* margin-left: -70px; */
     margin-bottom: 5px;
     display: flex;
     justify-content: center;
@@ -841,10 +807,6 @@ input[type="search"] {
     align-self: center;
     justify-self: center;
     justify-items: center;
-    /* font-weight: bold; */
-    /* height: 30px; */
-
-    /* width: 30px; */
   }
 }
 
@@ -893,11 +855,6 @@ input[type="search"] {
   background-color: white;
   border-radius: 25px;
 }
-
-/* style={{
-  fontWeight: "bold",
-  fontSize: "30px"
-}} */
 
 .cityText {
   font-weight: bold;
