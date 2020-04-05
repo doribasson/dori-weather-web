@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { storageAction } from "../actions/searchAction";
+import { storageAction, iconsSwitch1 } from "../actions/searchAction";
 import axios from "axios";
 import { API_ADDRESS_CURRENT, API_ADDRESS } from "../actions/type";
 import { KEY_WEATHER } from "../actions/type";
@@ -131,6 +131,7 @@ class Favorite extends Component {
                         {data.Temperature.Imperial.Value} F
                       </h5>
                       <h6 className="card-text">{data.WeatherText}</h6>
+                      <img src={iconsSwitch1(data.WeatherText)} alt="none" />
                     </div>
                   );
                 return null;
@@ -222,4 +223,6 @@ const mapStateToProps = state => ({
   cityKey: state.searchReducer.cityKey
 });
 
-export default connect(mapStateToProps, { storageAction })(Favorite);
+export default connect(mapStateToProps, { storageAction, iconsSwitch1 })(
+  Favorite
+);
