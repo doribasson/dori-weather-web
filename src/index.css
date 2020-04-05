@@ -689,12 +689,25 @@ input[type="search"] {
 .myLocation {
   font-size: 20px;
   font-weight: bold;
+  color: white;
+  /* font-family: "Courier"; */
+  /* margin: 10px 0 0 10px; */
+  white-space: nowrap;
+  overflow: hidden;
+  width: 30em;
+  animation: type 4s steps(60, end);
+}
+
+@keyframes type {
+  from {
+    width: 0;
+  }
 }
 
 @media (max-width: 584px) {
   .myLocation {
     /* text-indent: 17px; */
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     /* width: 80px; */
   }
@@ -811,6 +824,18 @@ input[type="search"] {
   height: 50px;
   width: 50px;
   margin-top: -40px;
+  animation: imgIn 2s;
+}
+
+@keyframes imgIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 584px) {
